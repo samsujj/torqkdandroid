@@ -1,0 +1,37 @@
+<ion-header class="login-header">
+  <div class="commonheader" *ngIf="isInternet == 0 && isOfflineData == 0">No internet connection</div>
+  <div class="commonheader" *ngIf="isInternet == 0 && isOfflineData == 1">ROUTE WILL BE SYNCED ONCE YOU HAVE SERVICE</div>
+  <ion-navbar class="login-top" hideBackButton>
+    <div class="login-wrapper">
+      <div class="mobile-top-con">
+        <div class="mobile-menu show">
+          <button class="navmenur" (click)="openmenu()" menuToggle="right" hidden="false">
+            <ion-icon name="menu"></ion-icon>
+          </button>
+          <button class="navmenul hide" menuToggle="left" hidden="true">
+            <ion-icon name="menu"></ion-icon>
+          </button>
+        </div>
+        <div class="logo">
+          <a [navPush]="homepage"> <img src="images/logo_main.png" alt="#"></a>
+        </div>
+        <div class="logout">
+          <a [navPush]="updateprofilepage"><img src="images/gear2.png"></a>
+        </div>
+      </div>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <h3>Current Latitude: {{locationTracker.lat}}</h3>
+  <h3>Current Longitude: {{locationTracker.lng}}</h3>
+
+  <div *ngFor="let item of locationTracker.lanlonga">{{item.lat}} == {{item.lng}} == {{item.timediff}}</div>
+
+  <button ion-button full primary (click)="start()">Start Tracking</button>
+  <button ion-button full primary (click)="stop()">Stop Tracking</button>
+
+</ion-content>
