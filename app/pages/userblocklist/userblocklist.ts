@@ -6,6 +6,7 @@ import { Storage, LocalStorage } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import {DomSanitizationService} from "@angular/platform-browser";
 import {HomePage} from '../home/home';
+import {UserblockPage} from '../userblock/userblock';
 
 @Component({
   templateUrl: 'build/pages/userblocklist/userblocklist.html',
@@ -37,7 +38,8 @@ export class UserblockListPage {
 
 
   goback(){
-    this.navCtrl.pop();
+    //this.navCtrl.pop();
+    this.navCtrl.push(UserblockPage, {});
   }
 
   blockpeople(item){

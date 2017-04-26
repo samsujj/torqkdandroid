@@ -26,13 +26,19 @@ export class NotificationPage {
   private isInternet;
     public isOfflineData;
 
+    public offset;
+    public showviewmore;
+
   constructor(private navCtrl: NavController,private nav: Nav,private _http: Http,private sanitizer:DomSanitizationService,public platform: Platform) {
     this.local = new Storage(LocalStorage);
 
       this.isOfflineData = 0;
+      this.offset = 0;
+      this.showviewmore = 1;
 
 
-    /************************Check Internet [start]*****************************/
+
+      /************************Check Internet [start]*****************************/
     this.platform.ready().then(() => {
 
       if(Network.connection === 'none'){
@@ -80,17 +86,32 @@ export class NotificationPage {
 
   getData(){
 
-    var link = 'http://torqkd.com/user/ajs2/getNotificationList/id/'+this.loggedinuser;
-    var data = {};
+      var link = 'http://torqkd.com/user/ajs2/getNotificationListnew/id/'+this.loggedinuser+'/offset/'+this.offset;
+      var data = {};
 
-    this._http.post(link, data)
-        .subscribe(res => {
+      this._http.post(link, data)
+          .subscribe(res => {
 
-          this.datalist3 = res.json();
+              this.datalist3 = res.json();
 
-        }, error => {
-          console.log("Oooops!");
-        });
+              var resdata = res.json();
+
+              if(this.offset > 0){
+                  this.datalist3=this.datalist3.concat(resdata);
+              }else{
+                  this.datalist3 = resdata;
+              }
+
+              this.offset = this.offset + 10;
+
+              if(resdata.length == 0){
+                  this.showviewmore = 0;
+              }
+
+
+          }, error => {
+              console.log("Oooops!");
+          });
 
   }
 

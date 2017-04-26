@@ -9,6 +9,7 @@ import {CommonPopupPage} from "../commonpopup/commonpopup";
 import {ExperiencePage} from "../experience/experience";
 import {SignupPage} from "../signup/signup";
 import {SignupnextPage} from "../signupnext/signupnext";
+import {SignupconnectPage} from "../signupconnect/signupconnect";
 import {SignupaddimagePage} from "../signupaddimage/signupaddimage";
 
 ///import {} from 'ionic-native';
@@ -34,6 +35,7 @@ export class HomePage {
   public signuppage = SignupPage;
   public signupnextpage = SignupnextPage;
   public signupaddimagepage = SignupaddimagePage;
+  public signupconnectpage = SignupconnectPage;
 
   constructor(private navCtrl: NavController ,public modalCtrl: ModalController , public  platform: Platform) {
     //this.local=null;

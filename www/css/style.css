@@ -492,6 +492,7 @@ ion-slides {
 }
 
 
+
 .stats-slider-bottom {
     margin-top: 24px !important;
     float: none;
@@ -514,10 +515,11 @@ ion-slides {
     width: 100%;    height:auto;
 }
 .Stats-slider-bottom-contain2{
-    height: auto; width: 90%; overflow: hidden;
+    /*height: auto; */
+    width: 90%; overflow: hidden;
 }
 .Stats-slider-bottom-contain2 img{
-    width: 100%; height:auto;
+    width: 100%; height: 100%;
 }
 
 .video-container-wrapper {
@@ -731,7 +733,7 @@ ion-label {
     height: auto;
     padding: 0px 15px 1px 15px;
     width: 262px;
-    margin-top: -4px;
+    margin-top: 0;
     float: left;
 }
 
@@ -790,11 +792,10 @@ ion-label {
     margin: 15px 0;
 }
 
-
 .postbtn1 {
     background: #f7931e!important;
     border: 2px solid #fff;
-    box-shadow: 0 0 2px #888;
+    box-shadow: 0 0 10px #888;
     color: #414151 !important;
     height: 34px !important;
     line-height: 33px !important;
@@ -812,7 +813,7 @@ ion-label {
 .postbtn2 {
     background: #f7931e!important;
     border: 2px solid #fff;
-    box-shadow: 0 0 2px #888;
+    box-shadow: 0 0 10px #888;
     color: #414151 !important;
     height: 34px !important;
     line-height: 33px !important;
@@ -6139,7 +6140,6 @@ code.has-numbering {
     width: 100%;
     padding-left: 12px;
 }
-
 .daily-poll-res .link-option a, .single-post .link-option a{
     color: #333333;
 }
@@ -6161,6 +6161,17 @@ code.has-numbering {
     padding: 5px;
     text-shadow: none !important;
 }
+.album-wrpper .labels .chart-label {
+    border-radius: 5px !important;
+    box-shadow: 2px 2px 5px #202020 !important;
+    color: #fff;
+    font-family: "veneerregular" !important;
+    font-size: 14px !important;
+    margin: 5px;
+    padding: 5px;
+    text-shadow: none !important;
+}
+
 
 .forum-page {
     width: 100%;
@@ -9666,6 +9677,152 @@ code.has-numbering {
     margin:0 0 10px 0;
 }
 
+.twcomheader{
+    color: #404042;
+    margin: 15px 0;
+    font-family: "veneerregular";
+    font-size: 30px;
+    font-weight: normal;
+    padding: 0 10px;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.1;
+}
+
+.lrotbtn , .rrotbtn , .signuprotatebutl1, .signuprotatebutl2{
+    border-radius: 0;
+    box-shadow: 0 0 10px #888;
+    border:none;
+    margin-bottom: 8px;
+}
+
+.photoSheet .action-sheet-wrapper{
+    width:275px;
+    font-family: "veneerregular";
+    border: 5px solid #f7941e;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+
+}
+.photoSheet .action-sheet-wrapper .action-sheet-group{
+    background: #FFFFFF none repeat scroll 0 0;
+}
+.photoSheet .action-sheet-wrapper .action-sheet-title{
+    color: #424242;
+    /*border-bottom: 1px solid #9a9a9c;*/
+    font-size: 20px;
+    display:none;
+
+}
+.photoSheet .action-sheet-wrapper .action-sheet-button{
+    color: #424242;
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+}
+.photoSheet .action-sheet-group .action-sheet-button span{
+    display:block;
+    text-align:center;
+    font-size: 24px;
+}
+
+.photoSheet .action-sheet-cancel{
+    display: none;
+}
+
+.frndsearchnew{
+    background: none !important;
+}
+
+.frndspsearchnew{
+    background: none;
+    padding: 0;
+}
+
+.frndspsearchnew .item-inner{
+    background: #ffffff;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: normal;
+    height: 40px;
+    padding: 0;
+    margin-bottom: 0 !important;
+}
+
+.frndspsearchnew .item-inner .input-wrapper{
+    margin-bottom: 0 !important;
+}
+
+.frndspsearchnew .frndselectnew{
+    padding: 0;
+    width: auto;
+    margin-left: 10px;
+    max-width:100%
+}
+
+.frndspsearchnew .frndselectnew .select-text{
+    margin-bottom: 0 !important;
+    line-height: 30px;
+    width: 90%;
+}
+
+.frndspsearchnew .frndselectnew .select-icon{
+    margin-bottom: 0 !important;
+    margin-top: 4px;
+}
+
+
+
+.picker-wrapper{
+    width: 90%;
+    left: 5%;
+    right: 5%;
+    border: 5px solid #f7941e !important;
+    font-family: "veneerregular";
+}
+
+.picker-wrapper .picker-toolbar{
+    border-bottom: none;
+}
+
+.picker-wrapper .picker-toolbar .picker-toolbar-button .button-inner{
+    color: #f7941e;
+    font-family: "veneerregular";
+    font-size: 20px;
+}
+
+.picker-wrapper .picker-columns .picker-above-highlight , .picker-wrapper .picker-columns .picker-below-highlight{
+    left: 5%;
+    width: 90%;
+}
+
+.event-dropdown{
+    padding: 12px 8px 13px 3px;
+    max-width: 100%;
+    font-size: 20px;
+}
+
+.menunewlist{
+    margin: 0 !important;
+}
+
+
+.blockuserdiv ion-avatar{
+    margin: 5px 10px 5px 0;
+}
+.blockuserdiv ion-avatar img{
+    border-radius: 0;
+}
+
+.blockuserdiv ion-label{
+    text-align: left;
+    padding: 5px 0;
+}
+
+.blockuserdiv ion-label h2{
+    width: auto;
+    display: inline-block;
+    line-height: 40px;
+}
 
 
 /***********************Code By Samsuj [end]**********************************/

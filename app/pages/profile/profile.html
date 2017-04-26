@@ -23,7 +23,7 @@
 
 
 <ion-content padding class="getting-started contentwrapper has-header hide has-subheader">
-    <div class="nointercls" *ngIf="isInternet == 0 && isOfflineData == 0">No internet connection</div>
+    <!--<div class="nointercls" *ngIf="isInternet == 0 && isOfflineData == 0">No internet connection</div>-->
     <div class="nointercls" *ngIf="isInternet == 0 && isOfflineData == 1">ROUTE WILL BE SYNCED ONCE YOU HAVE SERVICE</div>
 
 
@@ -129,8 +129,11 @@
                         <option value="4">Private Me Only</option>
                     </select>
 
-                  <input class="lrotbtn" *ngIf="photoval" (click)="imgRotate(1)" style="background: transparent url('images/rtal.png') no-repeat scroll 0% 0% ! important; height: 32px; width: 112px;" type="button">
-                  <input class="rrotbtn" *ngIf="photoval" (click)="imgRotate(2)" style="background: transparent url('images/rtar.png') no-repeat scroll 0% 0% ! important; height: 32px; width: 112px;" type="button">
+                  <!--<input class="lrotbtn" *ngIf="photoval" (click)="imgRotate(1)" style="background: transparent url('images/rtal.png') no-repeat scroll 0% 0% ! important; height: 32px; width: 112px;" type="button">
+                  <input class="rrotbtn" *ngIf="photoval" (click)="imgRotate(2)" style="background: transparent url('images/rtar.png') no-repeat scroll 0% 0% ! important; height: 32px; width: 112px;" type="button">-->
+                  <input class="lrotbtn" (click)="imgRotate(1)" style="background: transparent url('images/rtal.png') no-repeat scroll 0% 0% ! important; height: 32px; width: 112px;" type="button">
+                  <input class="rrotbtn" (click)="imgRotate(2)" style="background: transparent url('images/rtar.png') no-repeat scroll 0% 0% ! important; height: 32px; width: 112px;" type="button">
+
                     <button class="postbtn1" (click)="statuscancel()">cancel</button>
                     <button class="postbtn2" (click)="statusupdate()">post</button>
                     <div class="clear"></div>

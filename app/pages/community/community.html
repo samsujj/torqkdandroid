@@ -23,7 +23,7 @@
 
 
 <ion-content padding>
-  <div class="nointercls" *ngIf="isInternet == 0 && isOfflineData == 0">No internet connection</div>
+
   <div class="nointercls" *ngIf="isInternet == 0 && isOfflineData == 1">ROUTE WILL BE SYNCED ONCE YOU HAVE SERVICE</div>
 
   <div style="position:relative;" class="experience-wrapper friends-page">
@@ -32,7 +32,7 @@
 
 
 
-    <div class="left-text">Below are individuals that participate in the Torkq community. To view the sports they follow, place your mouse on their image. Click "connect" to initate a friendship request.  </div>
+    <div class="left-text">Below are individuals that participate in the Torkq community. To initiate a friend request click on their picture. Then click “connect”. Your request is now sent.  </div>
 
     <div class="right-text">
       <img style="float: left;" src="{{userImage}}">
@@ -46,14 +46,26 @@
         <div class="clear"></div>
       </div>
 
-      <div class="select-div">
+      <!--<div class="select-div">
         <label> Search By Sports :    </label>
 
         <select id="select-search" (change)="changeasd($event)">
           <option value="">SELECT ONE</option>
         </select>
         <div class="clear"></div>
+      </div>-->
+
+
+      <div class="select-div">
+        <label> Search By Sports :    </label>
+        <ion-item class="frndspsearchnew">
+          <ion-select class="frndselectnew" placeholder="SELECT ONE" (ionChange)="cngSp($event)">
+            <ion-option value="0">All</ion-option>
+            <ion-option *ngFor="let item of allSports; let i = index" value="{{item.id}}" disabled="{{isDisabled(item)}}">{{item.sport_name}}</ion-option>
+          </ion-select>
+        </ion-item>
       </div>
+
       <div class="clear"></div>
     </div>
 

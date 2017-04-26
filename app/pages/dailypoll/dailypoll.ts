@@ -8,6 +8,9 @@ import {CommonPopupPage} from "../commonpopup/commonpopup";
 import {HomePage} from '../home/home';
 import {UpdateprofilePage} from '../updateprofile/updateprofile';
 import {Network, SQLite} from "ionic-native";
+import '../../../node_modules/chart.js/src/chart.js';
+import { BaseChartComponent } from 'ng2-charts/ng2-charts';
+import {ProfilePage} from '../profile/profile'
 
 /*
   Generated class for the DailypolPage page.
@@ -17,6 +20,7 @@ import {Network, SQLite} from "ionic-native";
 */
 @Component({
   templateUrl: 'build/pages/dailypoll/dailypoll.html',
+    directives: [BaseChartComponent]
 })
 export class DailypollPage {
     public homepage = HomePage;
@@ -30,6 +34,30 @@ export class DailypollPage {
   private selAnswer;
     private isInternet;
     public isOfflineData;
+
+    public itemdet;
+    public newLabels;
+    public isLoad;
+
+    public pieChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales'];
+    public pieChartData:number[] = [300, 500, 100];
+    public pieChartType:string = 'pie';
+    public pieChartOption:any = {
+        animation: false,
+        responsive: true,
+
+        title: {
+            display: false
+        },
+        legend : {
+            display: false
+        }
+    };
+    public pieChartColors:Array<any> = [
+        { // grey
+            backgroundColor: ['#F7931E','#58595B','#9A9C9B','#231F20','#EBEBEB','#FAC88D']
+        }
+    ];
 
   constructor(private navCtrl: NavController,private _http: Http, private sanitizer:DomSanitizationService,public modalCtrl: ModalController,private alertCtrl: AlertController,public platform: Platform) {
     this.currentindex = 0;
@@ -92,7 +120,9 @@ export class DailypollPage {
             this.currentitem = this.itemlist[this.currentindex];
           }
 
-          console.log(this.currentitem.sel_ans);
+            if(this.currentitem.sel_ans > 0){
+                this.showpollres();
+            }
 
         }, error => {
           console.log("Oooops!");
@@ -176,6 +206,55 @@ export class DailypollPage {
         }
 
         return '';
+    }
+
+    backpoll(){
+
+        this.navCtrl.pop();
+
+    }
+
+
+    showpollres(){
+        this.isLoad = false;
+
+        var link = 'http://torqkd.com/user/ajs2/getpolllllResultnew';
+        var data = {poll_id:this.currentitem.ques_id};
+
+
+
+        this._http.post(link, data)
+            .subscribe(res => {
+                this.itemdet = res.json();
+
+                this.newLabels = [];
+
+                for(let n in this.itemdet.answer){
+                    this.newLabels.push(this.itemdet.answer[n]+' : '+this.itemdet.voteno[n]);
+                }
+
+                this.isLoad = true;
+                console.log(this.itemdet);
+            }, error => {
+                console.log("Oooops!");
+                this.navCtrl.pop();
+            });
+    }
+
+    getpieChartData(item){
+        var rarr = [];
+        for(let n in item.voteno){
+            rarr.push(item.voteno[n]);
+        }
+        return rarr;
+    }
+
+    getpieChartLabels(item){
+        var rarr = [];
+        for(let n in item.answer){
+            rarr.push(item.answer[n]);
+        }
+        return rarr;
     }
 
 

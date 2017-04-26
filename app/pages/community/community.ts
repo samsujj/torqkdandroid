@@ -29,6 +29,7 @@ export class CommunityPage {
   private selecthtml;
   private isInternet;
   public isOfflineData;
+  public allSports;
 
   constructor(private navCtrl: NavController,private _http: Http, private sanitizer:DomSanitizationService,public modalCtrl: ModalController,public platform: Platform) {
     this.local = new Storage(LocalStorage);
@@ -55,6 +56,19 @@ export class CommunityPage {
         .subscribe(res => {
           this.selecthtml = res.text();
           $('#select-search').append(res.text());
+        }, error => {
+          console.log("Oooops!");
+        });
+
+
+    var link5 = 'http://torqkd.com/user/ajs2/getsports1987';
+    var data5 = {};
+
+
+
+    this._http.post(link5, data5)
+        .subscribe(res => {
+          this.allSports = res.json();
         }, error => {
           console.log("Oooops!");
         });
@@ -125,6 +139,25 @@ export class CommunityPage {
       this.itemlist = this.friendist;
     }
 
+  }
+
+  cngSp(ev){
+    if (ev != 0) {
+      this.itemlist = this.friendist.filter((item) => {
+        return (item.spList.indexOf(ev) > -1);
+      })
+    }else{
+      this.itemlist = this.friendist;
+    }
+  }
+
+
+  isDisabled(item){
+    if(item.children_no > 0){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   gettrust(content){

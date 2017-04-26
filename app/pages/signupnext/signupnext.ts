@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { NavController, Content } from 'ionic-angular';
 import { Storage, LocalStorage,ModalController,ToastController } from 'ionic-angular';
 import {HomePage} from "../home/home";
 import {CommonPopupPage} from "../commonpopup/commonpopup";
@@ -20,6 +20,8 @@ import {Facebook,InAppBrowser} from 'ionic-native';
   templateUrl: 'build/pages/signupnext/signupnext.html',
 })
 export class SignupnextPage {
+  @ViewChild(Content) content: Content;
+
   private signUpForm:FormGroup;
   public homepage = HomePage;
   private social_type = '';
@@ -30,6 +32,14 @@ export class SignupnextPage {
       senderList: ["", Validators.required],
       mailBody: ["Be sure to check out torkq.com. Torkq brings the consciousness of outdoor sports to a new, progressive social media realm. Torkq is a collective of runners, jumpers, climbers, riders, hikers, surfers and all who dare to smack the terrain from land, sky, powder and H2O. Now go get it!! Time to connect, track and explore. I use Torkq to connect, track and explore my favorite sports.", Validators.required],
     });
+  }
+
+  ionViewDidEnter(){
+    this.scrolltocust();
+  }
+
+  scrolltocust(){
+    this.content.scrollTo(0,870,500);
   }
 
   showtermsploicy(type){
@@ -48,7 +58,7 @@ export class SignupnextPage {
     }
     if (this.signUpForm.valid) {
 
-      var link = 'http://torqkd.com/user/ajs2/signup';
+      var link = 'http://torqkd.com/user/ajs2/sendMail';
       var data = {mailBody : ev.mailBody,senderList : ev.senderList};
 
       this._http.post(link, data)

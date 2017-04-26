@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams,ModalController} from 'ionic-angular';
+import {NavController, NavParams,ModalController,ToastController} from 'ionic-angular';
 import * as $ from "jquery";
 import {Http, Headers} from "@angular/http";
 import { Storage, LocalStorage } from 'ionic-angular';
@@ -18,7 +18,7 @@ export class UserblockPage {
   private blocklist;
   private noofblock;
 
-  constructor(private navCtrl: NavController,private _navParams: NavParams,private _http: Http,public alertCtrl: AlertController,sanitizer:DomSanitizationService,public modalCtrl: ModalController) {
+  constructor(private navCtrl: NavController,private _navParams: NavParams,private _http: Http,public alertCtrl: AlertController,sanitizer:DomSanitizationService,public modalCtrl: ModalController,private toastCtrl: ToastController) {
     this.local = new Storage(LocalStorage);
 
     this.local.get('userinfo').then((value) => {
@@ -62,7 +62,13 @@ export class UserblockPage {
 
   searchus(){
     if(this.serachkey == ''){
-      alert('Pease insert search key');
+        let toast = this.toastCtrl.create({
+            message: 'Pease insert search key',
+            duration: 3000,
+            position: 'middle',
+            cssClass: 'addRoutesToast'
+        });
+        toast.present();
     }else {
       var link = 'http://torqkd.com/user/ajs2/searchUser';
       var data = { searchkey: this.serachkey, cuser: this.loggedinuser };
@@ -71,13 +77,22 @@ export class UserblockPage {
           .subscribe(res => {
             var items = res.json();
             if(items.length == 0){
-              alert('No data found');
+                let toast = this.toastCtrl.create({
+                    message: 'NAME NOT FOUND',
+                    duration: 3000,
+                    position: 'middle',
+                    cssClass: 'addRoutesToast'
+                });
+                toast.present();
+                return false;
             }else{
-              let modal = this.modalCtrl.create(UserblockListPage, {
+             /* let modal = this.modalCtrl.create(UserblockListPage, {
                 "items": items
               });
 
-              modal.present();
+              modal.present();*/
+
+                this.navCtrl.push(UserblockListPage, {"items": items});
             }
           }, error => {
             console.log("Oooops!");

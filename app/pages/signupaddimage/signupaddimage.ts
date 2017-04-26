@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { NavController, Content } from 'ionic-angular';
 import { Storage, LocalStorage,ModalController,ToastController,ActionSheetController } from 'ionic-angular';
 import {HomePage} from "../home/home";
 import {CommonPopupPage} from "../commonpopup/commonpopup";
@@ -24,7 +24,9 @@ import {ImageCrop1Page} from "../imagecrop1/imagecrop1";
   templateUrl: 'build/pages/signupaddimage/signupaddimage.html',
 })
 export class SignupaddimagePage {
-  public homepage = HomePage;
+    @ViewChild(Content) content: Content;
+
+    public homepage = HomePage;
   private local:LocalStorage;
   private userid;
   private cdatetime;
@@ -36,7 +38,7 @@ export class SignupaddimagePage {
   public isupload;
   public isupload1;
 
-  constructor(private navCtrl: NavController,public modalCtrl: ModalController,private _http: Http,public actionSheetCtrl: ActionSheetController) {
+  constructor(private navCtrl: NavController,public modalCtrl: ModalController,private _http: Http,public actionSheetCtrl: ActionSheetController,private toastCtrl: ToastController) {
 
     this.cdatetime = (new Date).getTime();
     this.userimage = 'default.jpg';
@@ -49,10 +51,6 @@ export class SignupaddimagePage {
 
     this.local = new Storage(LocalStorage);
 
-      this.userid = 498;
-
-      this.getprofileimage(1);
-      this.getprofileimage(2);
 
     this.local.get('newUserId').then((value) => {
       if(value!=null) {
@@ -66,6 +64,14 @@ export class SignupaddimagePage {
       this.navCtrl.push(HomePage);
     });
   }
+
+    ionViewDidEnter(){
+        this.scrolltocust();
+    }
+
+    scrolltocust(){
+        this.content.scrollTo(0,870,500);
+    }
 
   getprofileimage(type){
       var link3 = 'http://torqkd.com/user/ajs2/getUserfile2';
@@ -348,6 +354,29 @@ export class SignupaddimagePage {
     }
     cropnow1(){
         this.navCtrl.push(ImageCrop1Page,{userid:this.userid,'page':'signup'});
+    }
+
+    showhelptext(type){
+        if(type == 1){
+            let toast = this.toastCtrl.create({
+                message: 'Please Upload An Image Bigger Than 142X156 For Best Effects',
+                duration: 4000,
+                position: 'middle',
+                cssClass: 'addRoutesToast'
+            });
+            toast.present();
+        }
+        if(type == 2){
+            let toast = this.toastCtrl.create({
+                message: 'Please Upload An Image Bigger Than 1156X576 For Best Effects',
+                duration: 4000,
+                position: 'middle',
+                cssClass: 'addRoutesToast'
+            });
+            toast.present();
+        }
+
+
     }
 
 

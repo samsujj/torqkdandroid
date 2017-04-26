@@ -15,12 +15,14 @@ import { AlertController,ToastController } from 'ionic-angular';
   templateUrl: 'build/pages/fbcomment/fbcomment.html',
 })
 export class FbcommentPage {
-  private item;
-  private accessToken;
+  private item:any;
+  private accessToken:any;
+  private loggedinuser:any;
 
   constructor(private navCtrl: NavController,private _navParams: NavParams,private _http: Http,public alertCtrl: AlertController,public toastCtrl: ToastController) {
-    this.item=this._navParams.get("item");
-    this.accessToken=this._navParams.get("accessToken");
+      this.item=this._navParams.get("item");
+      this.accessToken=this._navParams.get("accessToken");
+      this.loggedinuser=this._navParams.get("loggedinuser");
 
 
 
@@ -32,18 +34,27 @@ export class FbcommentPage {
   }
 
   postfb(){
-    var fbcom = $('#fbcom textarea').val();
+    var fbcom:any = $('#fbcom textarea').val();
 
-    if(this.item.type == 'mp4'){
-     var link = 'http://torqkd.com/user/ajs2/postfbvideo';
-     var data = {'accessToken':this.accessToken,'com':fbcom,'value':this.item.value};
+      if(this.item.type == 'image'){
+          var link = 'http://torqkd.com/user/ajs2/postfbimagenew';
+          var data:any = {'accessToken':this.accessToken,'com':fbcom,'image':this.item.value,'userid':this.loggedinuser,'type':'image'};
+      }else if(this.item.type == 'image1'){
+          var link = 'http://torqkd.com/user/ajs2/postfbimagenew';
+          var data:any = {'accessToken':this.accessToken,'com':fbcom,'image':this.item.value,'userid':this.loggedinuser,'type':'image1'};
+      }else if(this.item.type == 'route'){
+          var link = 'http://torqkd.com/user/ajs2/postfbimagenew';
+          var data:any = {'accessToken':this.accessToken,'com':fbcom,'image':this.item.routes.image_name,'userid':this.loggedinuser,'type':'route'};
+      }else if(this.item.type == 'mp4'){
+         var link = 'http://torqkd.com/user/ajs2/postfbvideo';
+         var data:any = {'accessToken':this.accessToken,'com':fbcom,'value':this.item.value};
      }else if(this.item.type == 'youtube'){
-     var link = 'http://torqkd.com/user/ajs2/postfbYtvideo';
-     var data = {'accessToken':this.accessToken,'com':fbcom,'value':this.item.value};
+         var link = 'http://torqkd.com/user/ajs2/postfbYtvideo';
+         var data:any = {'accessToken':this.accessToken,'com':fbcom,'value':this.item.value};
 
      }else{
-     var link = 'http://torqkd.com/user/ajs2/postfbText';
-     var data = {'accessToken':this.accessToken,'com':this.item.msg,'value':this.item.value};
+         var link = 'http://torqkd.com/user/ajs2/postfbText';
+         var data:any = {'accessToken':this.accessToken,'com':this.item.msg,'value':this.item.value};
      }
 
      this._http.post(link, data)

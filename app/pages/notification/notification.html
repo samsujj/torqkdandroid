@@ -23,7 +23,7 @@
 
 
 <ion-content padding>
-    <div class="nointercls" *ngIf="isInternet == 0 && isOfflineData == 0">No internet connection</div>
+
     <div class="nointercls" *ngIf="isInternet == 0 && isOfflineData == 1">ROUTE WILL BE SYNCED ONCE YOU HAVE SERVICE</div>
 
   <div class="experience-wrapper notification-wrapper">
@@ -53,6 +53,11 @@
             </ion-item>
 
         </ion-list>
+
+          <div class="viewMore" *ngIf="isInternet == 1 && showviewmore == 1">
+              <a href="javascript:void(0);" (click)="getData()" class="">View More</a>
+          </div>
+
 
 
     </div>

@@ -5,6 +5,7 @@ import * as $ from "jquery";
 import {PhotocommentPage} from "../photocomment/photocomment";
 import {Facebook} from 'ionic-native';
 import {Fbcomment2Page} from "../fbcomment2/fbcomment2";
+import {FbcommentPage} from "../fbcomment/fbcomment";
 import {TwcommentPage} from "../twcomment/twcomment";
 import { ActionSheetController,ToastController } from 'ionic-angular';
 import { InAppBrowser} from "ionic-native";
@@ -122,7 +123,53 @@ export class PhotodetPage {
                 {
                     text: '',
                     handler: () => {
-                        Facebook.login(["email","public_profile"]).then((result) => {
+                        item.type = 'image';
+                        console.log(item);
+
+                        var link = 'http://torqkd.com/user/ajs2/getFbAt1';
+                        var data = {'user_id':this.loggedinuser};
+
+                        this._http.post(link, data)
+                            .subscribe(res => {
+
+                                var accesstoken = res.text();
+
+                                if (accesstoken != '') {
+
+                                } else {
+                                    Facebook.login(["email","public_profile"]).then((result) => {
+                                        if(result.status == 'connected'){
+                                            this.accessToken = result.authResponse.accessToken;
+
+                                            if(item.is_status == 1){
+                                                item.type = 'image';
+
+                                                let modal = this.modalCtrl.create(FbcommentPage, {
+                                                    "item": item, "accessToken" : this.accessToken,"loggedinuser":this.loggedinuser
+                                                });
+
+                                                modal.present();
+                                            }else {
+                                                item.type = 'image1';
+
+                                                let modal = this.modalCtrl.create(FbcommentPage, {
+                                                    "item": item, "accessToken" : this.accessToken,"loggedinuser":this.loggedinuser
+                                                });
+
+                                                modal.present();
+                                            }
+
+                                        }else{
+                                            alert('An Error occured in FB Login');
+                                        }
+                                    });
+                                }
+                            });
+
+
+
+
+                        /*Facebook.login(["email","public_profile"]).then((result) => {
 
                             if(result.status == 'connected'){
                                 this.accessToken = result.authResponse.accessToken;
@@ -173,7 +220,7 @@ export class PhotodetPage {
                             }else{
                                 alert('An Error occured in FB Login');
                             }
-                        });
+                        });*/
                     }
                 },
                 {

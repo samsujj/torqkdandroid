@@ -62,6 +62,11 @@ export class profilegroupPage {
     public groupList;
     public groupcount;
 
+
+    public groupcount1;
+
+
+
     mySlideOptions = {
         initialSlide: 0,
         loop: true,
@@ -225,11 +230,11 @@ export class profilegroupPage {
 
     getGroups(){
 
-        this.getFromdb('profileGroupdata');
+
 
         if(this.isInternet == 1){
 
-            var link = 'http://torqkd.com/user/ajs2/getGroups';
+            var link = 'http://torqkd.com/user/ajs2/getGroupsNew';
             var data = {userid: this.loggedinuser};
 
 
@@ -249,12 +254,14 @@ export class profilegroupPage {
 
                 });
 
+        }else{
+            this.getFromdb('profileGroupdata');
         }
 
     }
     getlocGroups(){
 
-        this.getFromdb('profilelocGroupdata');
+
 
         if(this.isInternet == 1){
 
@@ -264,7 +271,7 @@ export class profilegroupPage {
 
             loading.present();
 
-            var link = 'http://torqkd.com/user/ajs2/getLocGroups';
+            var link = 'http://torqkd.com/user/ajs2/getFriendsGroups';
             var data = {userid: this.loggedinuser};
 
 
@@ -280,12 +287,14 @@ export class profilegroupPage {
                     loading.dismiss();
                 });
 
+        }else{
+            this.getFromdb('profilelocGroupdata');
         }
 
     }
     getsugGroups(){
 
-        this.getFromdb('profilesugGroupdata');
+
 
         if(this.isInternet == 1){
 
@@ -294,13 +303,14 @@ export class profilegroupPage {
             });
 
             loading.present();
-            var link = 'http://torqkd.com/user/ajs2/getSugGroups';
+            var link = 'http://torqkd.com/user/ajs2/getCommunityGroups';
             var data = {userid: this.loggedinuser};
 
 
             this._http.post(link, data)
                 .subscribe(res => {
                     var res2 = res.json();
+
                     this.groupList = res2;
                     this.groupcount = res2.length;
                     loading.dismiss();
@@ -310,6 +320,8 @@ export class profilegroupPage {
                     loading.dismiss();
                 });
 
+        }else{
+            this.getFromdb('profilesugGroupdata');
         }
 
     }

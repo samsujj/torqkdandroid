@@ -580,7 +580,7 @@ export class ProfilePage {
     delstatus(item){
         let confirm = this.alertCtrl.create({
             title: '',
-            message: 'Are you sure delete this post?',
+            message: 'ARE YOU SURE YOU WANT TO DELETE THIS POST?',
             buttons: [
                 {
                     text: 'OK',
@@ -946,114 +946,210 @@ export class ProfilePage {
                 {
                     text: '',
                     handler: () => {
-                        Facebook.login(["email","public_profile"]).then((result) => {
+                        var link = 'http://torqkd.com/user/ajs2/getFbAt1';
+                        var data = {'user_id':this.loggedinuser};
 
-                            if(result.status == 'connected'){
-                                this.accessToken = result.authResponse.accessToken;
-                                if(item.type == 'image'){
-                                    var obj = {
-                                        method: "share",
-                                        href: 'http://torkq.com/singlepost.php?id='+this.loggedinuser+'&image='+item.value,
-                                        display : 'popup'
-                                    };
-                                    Facebook.showDialog(obj).then((res) => {
-                                        let toast = this.toastCtrl.create({
-                                            message: 'Posted Successfully On Facebook',
-                                            duration: 3000,
-                                            position : 'middle',
-                                            cssClass : 'social-share-success'
+                        this._http.post(link, data)
+                            .subscribe(res => {
+
+                                var accesstoken = res.text();
+
+                                if(accesstoken != ''){
+                                    if(item.type == 'image'){
+
+                                        let modal = this.modalCtrl.create(FbcommentPage, {
+                                            "item": item, "accessToken" : accesstoken,"loggedinuser":this.loggedinuser
                                         });
 
-                                        toast.present();
-                                    });
-                                }else if(item.type == 'route'){
-                                    var obj = {
-                                        method: "share",
-                                        href: 'http://torkq.com/singlepost.php?id='+this.loggedinuser+'&route_image='+item.routes.image_name,
-                                        display : 'popup'
-                                    };
-                                    Facebook.showDialog(obj).then((res) => {
-                                        let toast = this.toastCtrl.create({
-                                            message: 'Posted Successfully On Facebook',
-                                            duration: 3000,
-                                            position : 'middle',
-                                            cssClass : 'social-share-success'
+                                        modal.present();
+
+                                        /*var obj = {
+                                         method: "share",
+                                         //href: 'http://torkq.com/experience',
+                                         href: 'http://torkq.com/singlepost.php?id='+this.loggedinuser+'&image='+item.value,
+                                         display : 'popup',
+                                         share_feedWeb: true
+                                         };
+                                         Facebook.showDialog(obj).then((res) => {
+                                         let toast = this.toastCtrl.create({
+                                         message: 'Posted Successfully On Facebook',
+                                         duration: 3000,
+                                         position : 'middle',
+                                         cssClass : 'social-share-success'
+                                         });
+                                         toast.present();
+                                         });*/
+                                    }else if(item.type == 'route'){
+
+                                        let modal = this.modalCtrl.create(FbcommentPage, {
+                                            "item": item, "accessToken" : accesstoken,"loggedinuser":this.loggedinuser
                                         });
 
-                                        toast.present();
-                                    });
-                                }else if(item.type == 'mp4'){
-//                                    var link = 'http://torqkd.com/user/ajs2/postfbvideo';
-//                                    var data = {'accessToken':this.accessToken,'com':item.msg,'value':item.value};
-                                    let modal = this.modalCtrl.create(FbcommentPage, {
-                                        "item": item, "accessToken" : this.accessToken
-                                    });
+                                        modal.present();
 
-                                    modal.present();
+                                        /*var obj = {
+                                         method: "share",
+                                         href: 'http://torkq.com/singlepost.php?id='+this.loggedinuser+'&route_image='+item.routes.image_name,
+                                         display : 'popup',
+                                         share_feedWeb: true
+                                         };
+                                         Facebook.showDialog(obj).then((res) => {
+                                         let toast = this.toastCtrl.create({
+                                         message: 'Posted Successfully On Facebook',
+                                         duration: 3000,
+                                         position : 'middle',
+                                         cssClass : 'social-share-success'
+                                         });
+                                         toast.present();
+                                         });*/
+                                    }else if(item.type == 'mp4'){
+                                        let modal = this.modalCtrl.create(FbcommentPage, {
+                                            "item": item, "accessToken" : accesstoken,"loggedinuser":this.loggedinuser
+                                        });
 
-                                }else if(item.type == 'youtube'){
-//                                    var link = 'http://torqkd.com/user/ajs2/postfbYtvideo';
-//                                    var data = {'accessToken':this.accessToken,'com':item.msg,'value':item.value};
-                                    let modal = this.modalCtrl.create(FbcommentPage, {
-                                        "item": item, "accessToken" : this.accessToken
-                                    });
+                                        modal.present();
 
-                                    modal.present();
-                                }else{
-                                    var link = 'http://torqkd.com/user/ajs2/postfbText';
-                                    var data = {'accessToken':this.accessToken,'com':item.msg,'value':item.value};
+                                    }else if(item.type == 'youtube'){
+                                        let modal = this.modalCtrl.create(FbcommentPage, {
+                                            "item": item, "accessToken" : accesstoken,"loggedinuser":this.loggedinuser
+                                        });
 
-                                    this._http.post(link, data)
-                                        .subscribe(res => {
-                                            let toast = this.toastCtrl.create({
-                                                message: 'Posted Successfully On Facebook',
-                                                duration: 3000,
-                                                position : 'middle',
-                                                cssClass : 'social-share-success'
+                                        modal.present();
+                                    }else{
+                                        var link = 'http://torqkd.com/user/ajs2/postfbText';
+                                        var data = {'accessToken':accesstoken,'com':item.msg,'value':item.value};
+
+                                        this._http.post(link, data)
+                                            .subscribe(res => {
+                                                let toast = this.toastCtrl.create({
+                                                    message: 'Posted Successfully On Facebook',
+                                                    duration: 3000,
+                                                    position : 'middle',
+                                                    cssClass : 'social-share-success'
+                                                });
+                                                toast.present();
+                                            }, error => {
+                                                let toast = this.toastCtrl.create({
+                                                    message: 'An Error occured in FB Share',
+                                                    duration: 3000,
+                                                    position : 'middle',
+                                                    cssClass : 'social-share-success'
+                                                });
+                                                toast.present();
                                             });
-                                            toast.present();
-                                        }, error => {
-                                            let toast = this.toastCtrl.create({
-                                                message: 'An Error occured in FB Share',
-                                                duration: 3000,
-                                                position : 'middle',
-                                                cssClass : 'social-share-success'
-                                            });
-                                            toast.present();
-                                        });
-                                }
-
-
-
-
-
-                            }else{
-                                alert('An Error occured in FB Login');
-                            }
-
-
-
-
-                            /*Facebook.api('/' + result.authResponse.userID + '?fields=id,name,gender,email,first_name,last_name',[]).then((result1) => {
-                                console.log(result1);
-                                alert(result1);
-                                var x;
-                                for (x in result1){
-                                    alert(x+'---'+result1[x]);
-                                    if(Array.isArray(result1[x])){
-                                        let y;
-                                        for (y in result1[x]) {
-                                            alert(y + '' + result1[x][y]);
-                                        }
                                     }
+                                }else{
+                                    Facebook.login(["email","public_profile"]).then((result) => {
+
+                                        if (result.status == 'connected') {
+
+                                            this.accessToken = result.authResponse.accessToken;
+
+
+                                            var link2 = 'http://torqkd.com/user/ajs2/updateAccessToken';
+                                            var data2 = {'id':this.loggedinuser,'accesstoken':this.accessToken};
+
+
+                                            this._http.post(link2, data2)
+                                                .subscribe(res5 => {
+
+                                                    var result5 = res5.json();
+
+                                                }, error => {
+                                                    console.log("Oooops!");
+                                                });
+
+
+
+                                            if(item.type == 'image'){
+                                                let modal = this.modalCtrl.create(FbcommentPage, {
+                                                    "item": item, "accessToken" : accesstoken,"loggedinuser":this.loggedinuser
+                                                });
+
+                                                modal.present();
+                                                /*var obj = {
+                                                 method: "share",
+                                                 //href: 'http://torkq.com/experience',
+                                                 href: 'http://torkq.com/singlepost.php?id='+this.loggedinuser+'&image='+item.value,
+                                                 display : 'popup',
+                                                 share_feedWeb: true
+                                                 };
+                                                 Facebook.showDialog(obj).then((res) => {
+                                                 let toast = this.toastCtrl.create({
+                                                 message: 'Posted Successfully On Facebook',
+                                                 duration: 3000,
+                                                 position : 'middle',
+                                                 cssClass : 'social-share-success'
+                                                 });
+                                                 toast.present();
+                                                 });*/
+                                            }else if(item.type == 'route'){
+                                                let modal = this.modalCtrl.create(FbcommentPage, {
+                                                    "item": item, "accessToken" : accesstoken,"loggedinuser":this.loggedinuser
+                                                });
+
+                                                modal.present();
+                                                /*var obj = {
+                                                 method: "share",
+                                                 href: 'http://torkq.com/singlepost.php?id='+this.loggedinuser+'&route_image='+item.routes.image_name,
+                                                 display : 'popup',
+                                                 share_feedWeb: true
+                                                 };
+                                                 Facebook.showDialog(obj).then((res) => {
+                                                 let toast = this.toastCtrl.create({
+                                                 message: 'Posted Successfully On Facebook',
+                                                 duration: 3000,
+                                                 position : 'middle',
+                                                 cssClass : 'social-share-success'
+                                                 });
+                                                 toast.present();
+                                                 });*/
+                                            }else if(item.type == 'mp4'){
+                                                let modal = this.modalCtrl.create(FbcommentPage, {
+                                                    "item": item, "accessToken" : this.accessToken
+                                                });
+
+                                                modal.present();
+
+                                            }else if(item.type == 'youtube'){
+                                                let modal = this.modalCtrl.create(FbcommentPage, {
+                                                    "item": item, "accessToken" : this.accessToken
+                                                });
+
+                                                modal.present();
+                                            }else{
+                                                var link = 'http://torqkd.com/user/ajs2/postfbText';
+                                                var data = {'accessToken':this.accessToken,'com':item.msg,'value':item.value};
+
+                                                this._http.post(link, data)
+                                                    .subscribe(res => {
+                                                        let toast = this.toastCtrl.create({
+                                                            message: 'Posted Successfully On Facebook',
+                                                            duration: 3000,
+                                                            position : 'middle',
+                                                            cssClass : 'social-share-success'
+                                                        });
+                                                        toast.present();
+                                                    }, error => {
+                                                        let toast = this.toastCtrl.create({
+                                                            message: 'An Error occured in FB Share',
+                                                            duration: 3000,
+                                                            position : 'middle',
+                                                            cssClass : 'social-share-success'
+                                                        });
+                                                        toast.present();
+                                                    });
+                                            }
+
+                                        }else{
+                                            alert('An Error occured in FB Login');
+                                        }
+                                    });
                                 }
 
-
-                            });*/
-
-
-
-                        });
+                            }, error => {
+                                console.log("Oooops!");
+                            });
                     }
                 },
                 {

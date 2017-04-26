@@ -23,7 +23,6 @@
 
 <ion-content padding class="getting-started contentwrapper has-header hide has-subheader">
 
-    <div class="nointercls" *ngIf="isInternet == 0 && isOfflineData == 0">No internet connection</div>
     <div class="nointercls" *ngIf="isInternet == 0 && isOfflineData == 1">ROUTE WILL BE SYNCED ONCE YOU HAVE SERVICE</div>
 
     <div class="experience-wrapper">
@@ -172,7 +171,7 @@
                     <div class="clear"></div>
                 </div>
 
-                <span class="empty" *ngIf="!eventcount">No results found.</span>
+                <span class="empty" *ngIf="eventcount == 0">No results found.</span>
 
                 <div class="viewMore" *ngIf="eventoffset < totalevent">
                     <a href="javascript:void(0);" (click)="getMoreEvents()" class="">View More</a>
