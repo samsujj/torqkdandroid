@@ -7,7 +7,7 @@ import {UserblockPage} from "../userblock/userblock";
 import {ProfilePage} from "../profile/profile";
 import {ImageCropPage} from "../imagecrop/imagecrop";
 import {ImageCrop1Page} from "../imagecrop1/imagecrop1";
-import {Storage, LocalStorage, NavController, Nav, Content, ModalController, Platform,ActionSheetController,ToastController} from "ionic-angular";
+import {Storage, LocalStorage, NavController, Nav, Content, ModalController, Platform,ActionSheetController,ToastController,LoadingController} from "ionic-angular";
 import {FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, FormBuilder, FormGroup, Validators,FormControl} from "@angular/forms";
 import {ControlGroup, Control} from "@angular/common";
 import {
@@ -57,7 +57,7 @@ export class UpdateprofilePage {
 
 
 
-  constructor(private navCtrl: NavController,public modalCtrl: ModalController,private _http: Http,public fb: FormBuilder,public actionSheetCtrl: ActionSheetController, public platform: Platform,private toastCtrl: ToastController) {
+  constructor(private navCtrl: NavController,public modalCtrl: ModalController,private _http: Http,public fb: FormBuilder,public actionSheetCtrl: ActionSheetController, public platform: Platform,private toastCtrl: ToastController,public loadingCtrl: LoadingController) {
 
       this.isOfflineData = 0;
 
@@ -243,6 +243,13 @@ export class UpdateprofilePage {
 
     if (this.signUpForm.valid) {
 
+        let loading = this.loadingCtrl.create({
+            content: 'Please wait...',
+            dismissOnPageChange : true,
+            duration : 5000
+        });
+        loading.present();
+
       var link = 'http://torqkd.com/user/ajs2/updateProfile';
       var data = {
         id: event.id,
@@ -256,17 +263,46 @@ export class UpdateprofilePage {
 
       this._http.post(link, data)
           .subscribe(res => {
-
+              loading.dismiss();
             var sdfs: string = res.text();
+
+
+
             if (sdfs == 'error') {
-              alert('Error ocurred');
+
+
+
+                let toast = this.toastCtrl.create({
+                    message: 'Error occurred!!!!!',
+                    duration: 3000,
+                    position : 'middle',
+                    cssClass : 'social-share-success'
+                });
+
+               toast.present();
+
             } else {
 
-              this.navCtrl.push(ProfilePage);
+
+
+                let toast = this.toastCtrl.create({
+                    message: 'Updated successfully!!!!!',
+                    duration: 3000,
+                    position : 'middle',
+                    cssClass : 'social-share-success'
+                });
+
+                toast.onDidDismiss(() => {
+                    this.navCtrl.push(ProfilePage);
+                });
+
+                toast.present();
+
             }
 
           }, error => {
             console.log("Oooops!");
+
           });
 
 

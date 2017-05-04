@@ -33,7 +33,16 @@ export class AddeventsPage {
   private sportsid;
   private sportlist;
   private grouplist;
-  private max;
+  private start_min;
+  private start_max;
+  private end_max;
+  private end_min;
+  private starttime;
+  private endtime;
+  private starttime_min;
+  private starttime_max;
+  private endtime_max;
+  private endtime_min;
   private allday = 0;
   public countrylist = [];
   public statelist = [];
@@ -45,9 +54,14 @@ export class AddeventsPage {
 
     var d = new Date();
     var n:number = d.getFullYear();
-    this.isOfflineData = 0;
 
-    this.max = n+3;
+    this.starttime = "09:00";
+    this.endtime = "09:00";
+
+    this.start_min = n-1;
+    this.start_max = n+10;
+    this.end_min = n-1;
+    this.end_max = n+10;
 
     this.imagename = '';
     this.sportsid = 0;
@@ -55,7 +69,7 @@ export class AddeventsPage {
     this.addEventForm = fb.group({
       name: ["", Validators.required],
       description: [""],
-      group_id: [""],
+      group_id: [0],
       from_date: ["", Validators.required],
       to_date: ["", Validators.required],
       location: ["", Validators.required],
@@ -238,6 +252,44 @@ export class AddeventsPage {
     }
 
     return '';
+  }
+
+  stdatesel(ev){
+    var year = ev.year.value;
+    var yeartxt = ev.year.text;
+    var monthtxt = ev.month.text;
+    var daytxt = ev.day.text;
+
+    this.end_min = yeartxt+"-"+monthtxt+"-"+daytxt;
+    this.end_max = year+5;
+  }
+
+  endatesel(ev){
+    var year = ev.year.value;
+    var yeartxt = ev.year.text;
+    var monthtxt = ev.month.text;
+    var daytxt = ev.day.text;
+
+    this.start_max = yeartxt+"-"+monthtxt+"-"+daytxt;
+    this.start_min = year-5;
+  }
+
+  sttimesel(ev){
+    var hh:number = ev.hour.value;
+    hh = hh+1;
+    var mm:number = ev.minute.value;
+    var mm2 = ((mm <10)?("0"+mm):mm);
+
+    var cval = hh+":"+mm2;
+
+    console.log(cval);
+
+    (<FormControl>this.addEventForm.controls['end_time']).updateValue(cval);
+
+  }
+
+  entimesel(ev){
+    console.log(ev);
   }
 
 

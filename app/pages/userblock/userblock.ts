@@ -7,6 +7,7 @@ import { AlertController } from 'ionic-angular';
 import {DomSanitizationService} from "@angular/platform-browser";
 import {HomePage} from '../home/home';
 import {UserblockListPage} from '../userblocklist/userblocklist';
+import {UpdateprofilePage} from "../updateprofile/updateprofile";
 
 @Component({
   templateUrl: 'build/pages/userblock/userblock.html',
@@ -38,7 +39,8 @@ export class UserblockPage {
 
 
   goback(){
-    this.navCtrl.pop();
+    //this.navCtrl.pop();
+      this.navCtrl.push(UpdateprofilePage);
   }
 
   getblocklist(){

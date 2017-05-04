@@ -87,7 +87,7 @@ export class SignupPage {
   }
 
   scrolltocust(){
-    this.content.scrollTo(0,870,500);
+    this.content.scrollTo(0,870,5000);
   }
 
 

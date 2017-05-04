@@ -83,6 +83,11 @@ export class SinglepostPage {
         .subscribe(res => {
           this.statusdata=(res.json().status);
           this.loadmaps(this.statusdata);
+
+
+          console.log(this.statusdata);
+
+
         }, error => {
           console.log("Oooops!");
         });

@@ -89,6 +89,7 @@ export class AlbumPage {
     $('.navmenul').click();
   }
   getimages(loggedinuser,userid){
+
     var link = 'http://torqkd.com/user/ajs2/getImage';
     var data = {userid:userid,sess_id : loggedinuser};
 
@@ -97,6 +98,9 @@ export class AlbumPage {
     this._http.post(link, data)
         .subscribe(res => {
           this.photolist = res.json();
+
+          console.log(this.photolist );
+
         }, error => {
           console.log("Oooops!");
         });
@@ -338,7 +342,7 @@ export class AlbumPage {
 
   postStatus(){
     var link = 'http://torqkd.com/user/ajs2/addAlbum';
-    var data = {'value':this.statusvalue,'user_id':this.loggedinuser,'share_with':this.share_with,'type':'image','msg':this.statusvalue};
+    var data = {'value':this.statusvalue,'user_id':this.loggedinuser,'share_with':this.share_with,'type':'image','msg':this.statusText};
 
     this._http.post(link, data)
         .subscribe(data => {

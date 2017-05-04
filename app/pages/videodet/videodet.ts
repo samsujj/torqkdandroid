@@ -196,33 +196,67 @@ export class VideodetPage {
                 {
                     text: '',
                     handler: () => {
-                        Facebook.login(["email","public_profile"]).then((result) => {
 
-                            if(result.status == 'connected'){
-                                this.accessToken = result.authResponse.accessToken;
-                                if(item.type == 'mp4'){
-                                    let modal = this.modalCtrl.create(Fbcomment1Page, {
-                                        "item": item, "accessToken" : this.accessToken
+                        var link = 'http://torqkd.com/user/ajs2/getFbAt1';
+                        var data = {'user_id':this.loggedinuser};
+
+                        this._http.post(link, data)
+                            .subscribe(res => {
+
+                                var accesstoken = res.text();
+
+                                if (accesstoken != '') {
+
+                                    if(item.type == 'mp4'){
+                                        let modal = this.modalCtrl.create(Fbcomment1Page, {
+                                            "item": item, "accessToken" : accesstoken
+                                        });
+
+                                        modal.present();
+
+                                    }else if(item.type == 'youtube'){
+                                        let modal = this.modalCtrl.create(Fbcomment1Page, {
+                                            "item": item, "accessToken" : accesstoken
+                                        });
+
+                                        modal.present();
+                                    }
+
+                                } else {
+                                    Facebook.login(["email","public_profile"]).then((result) => {
+
+                                        if(result.status == 'connected'){
+                                            this.accessToken = result.authResponse.accessToken;
+                                            if(item.type == 'mp4'){
+                                                let modal = this.modalCtrl.create(Fbcomment1Page, {
+                                                    "item": item, "accessToken" : this.accessToken
+                                                });
+
+                                                modal.present();
+
+                                            }else if(item.type == 'youtube'){
+                                                let modal = this.modalCtrl.create(Fbcomment1Page, {
+                                                    "item": item, "accessToken" : this.accessToken
+                                                });
+
+                                                modal.present();
+                                            }
+
+
+
+
+
+                                        }else{
+                                            alert('An Error occured in FB Login');
+                                        }
                                     });
-
-                                    modal.present();
-
-                                }else if(item.type == 'youtube'){
-                                    let modal = this.modalCtrl.create(Fbcomment1Page, {
-                                        "item": item, "accessToken" : this.accessToken
-                                    });
-
-                                    modal.present();
                                 }
+                            });
 
 
 
 
 
-                            }else{
-                                alert('An Error occured in FB Login');
-                            }
-                        });
                     }
                 },
                 {

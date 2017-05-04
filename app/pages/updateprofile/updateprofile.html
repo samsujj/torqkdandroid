@@ -115,13 +115,20 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-group update-profile-select-area">
             <div class="col-sm-10" style="width:100%; padding:0;">
               <label>COUNTRY</label>
-              <select class="register_select form-control" [formControl]="signUpForm.controls['country']" (change)="changecountry($event.target.value)">
+              <!--<select class="register_select form-control" [formControl]="signUpForm.controls['country']" (change)="changecountry($event.target.value)">
                 <option value="" class="">SELECT YOUR COUNTRY</option>
                 <option *ngFor="let item of countrylist; let i = index" value="{{item.id}}">{{item.name}}</option>
-              </select>
+              </select>-->
+
+              <ion-item>
+                <ion-select class="register_select form-control signup-dropdown" placeholder="COUNTRY" [formControl]="signUpForm.controls['country']" (ionChange)="changecountry($event)">
+                  <ion-option *ngFor="let item of countrylist; let i = index" value="{{item.id}}">{{item.name}}</ion-option>
+                </ion-select>
+              </ion-item>
+
               <div *ngIf ="signUpForm.controls['country'].touched">
                 <div *ngIf ="!signUpForm.controls['country'].valid">
                   <label class="control-label has-error validationMessage">Country cannot be blank.</label>
@@ -130,16 +137,22 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-group update-profile-select-area">
             <div class="col-sm-10 ng-hide" *ngIf="stateLoad" style="text-align: center;">
               <img src="images/loading_list.gif">
             </div>
             <div class="col-sm-10" *ngIf="!stateLoad" style="width:100%; padding:0;">
               <label>STATE</label>
-              <select class="register_select form-control" [formControl]="signUpForm.controls['state']">
+              <!--<select class="register_select form-control" [formControl]="signUpForm.controls['state']">
                 <option value="" class="">SELECT YOUR STATE</option>
                 <option *ngFor="let item of statelist; let i = index" value="{{item.id}}">{{item.name}}</option>
-              </select>
+              </select>-->
+
+              <ion-item>
+                <ion-select class="register_select form-control signup-dropdown" placeholder="STATE" [formControl]="signUpForm.controls['state']">
+                  <ion-option *ngFor="let item of statelist; let i = index" value="{{item.id}}">{{item.name}}</ion-option>
+                </ion-select>
+              </ion-item>
 
               <div *ngIf ="signUpForm.controls['state'].touched">
                 <div *ngIf ="!signUpForm.controls['state'].valid">

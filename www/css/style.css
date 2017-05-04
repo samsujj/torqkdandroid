@@ -795,7 +795,7 @@ ion-label {
 .postbtn1 {
     background: #f7931e!important;
     border: 2px solid #fff;
-    box-shadow: 0 0 10px #888;
+    box-shadow: 0 0 2px #888;
     color: #414151 !important;
     height: 34px !important;
     line-height: 33px !important;
@@ -813,7 +813,7 @@ ion-label {
 .postbtn2 {
     background: #f7931e!important;
     border: 2px solid #fff;
-    box-shadow: 0 0 10px #888;
+    box-shadow: 0 0 2px #888;
     color: #414151 !important;
     height: 34px !important;
     line-height: 33px !important;
@@ -8517,6 +8517,8 @@ code.has-numbering {
     color: #333333;
     font-family: veneerregular;
     text-align:center;
+    padding: 9px 0 6px;
+    font-size : 25px;
 }
 
 
@@ -9108,7 +9110,7 @@ code.has-numbering {
 
 .photo-page .status-input .lrotbtn {
     border: medium none;
-    box-shadow: 0 0 2px #888;
+    box-shadow: 0 0 2px #888;*
     cursor: pointer;
     float: left;
     margin-bottom: 10px;
@@ -9664,6 +9666,8 @@ code.has-numbering {
     color: #333333;
     font-family: veneerregular;
     text-align:center;
+    padding: 9px 0 6px;
+    font-size : 25px;
 }
 
 .nointercls{
@@ -9691,7 +9695,7 @@ code.has-numbering {
 
 .lrotbtn , .rrotbtn , .signuprotatebutl1, .signuprotatebutl2{
     border-radius: 0;
-    box-shadow: 0 0 10px #888;
+    box-shadow: 0 0 2px #888;
     border:none;
     margin-bottom: 8px;
 }
@@ -9824,6 +9828,51 @@ code.has-numbering {
     line-height: 40px;
 }
 
+.signup-dropdown{
+    max-width: 100% !important;
+    height: auto !important;
+    font-size: 20px !important;
+    padding-left: 2% !important;
+    background: none !important;
+    font-weight: bold !important;
+    border-right: 0 !important;
+}
+
+.signup-dropdown .select-text{
+    display: inline-block;
+    width: auto;
+    float: left;
+}
+
+.signup-dropdown .select-icon{
+    float: left;
+}
+
+.update-profile-select-area .item{
+    background:#ffffff none repeat scroll 0 0 !important;
+    width: 96% !important;
+    padding: 0;
+    border: 3px solid #97989a !important;
+    border-radius:5px;
+    font-family: Arial,Helvetica,sans-serif !important;
+    font-size: 20px !important;
+    font-weight: normal !important;
+    height: 40px !important;
+    margin-top :10px;
+    margin-bottom :10px;
+}
+
+.update-profile-select-area .signup-dropdown{
+    font-weight: normal !important;
+}
+.update-profile-select-area .item ion-label{
+    text-align: left;
+    padding-left: 2%;
+}
+.update-profile-select-area .item ion-select{
+    max-width:60%;
+    padding-left:0;
+}
 
 /***********************Code By Samsuj [end]**********************************/
 

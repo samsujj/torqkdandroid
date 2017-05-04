@@ -70,7 +70,7 @@ export class SignupaddimagePage {
     }
 
     scrolltocust(){
-        this.content.scrollTo(0,870,500);
+        this.content.scrollTo(0,870,5000);
     }
 
   getprofileimage(type){

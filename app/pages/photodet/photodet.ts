@@ -32,6 +32,8 @@ export class PhotodetPage {
   constructor(private navCtrl: NavController,private _navParams: NavParams,private _http: Http,public modalCtrl: ModalController,public actionSheetCtrl: ActionSheetController,public toastCtrl: ToastController,public sanitizer:DomSanitizationService) {
     this.itemdet=this._navParams.get("item");
 
+      console.log(this.itemdet);
+
     this.local = new Storage(LocalStorage);
 
     this.local.get('userinfo').then((value) => {
@@ -123,8 +125,6 @@ export class PhotodetPage {
                 {
                     text: '',
                     handler: () => {
-                        item.type = 'image';
-                        console.log(item);
 
                         var link = 'http://torqkd.com/user/ajs2/getFbAt1';
                         var data = {'user_id':this.loggedinuser};
@@ -135,6 +135,24 @@ export class PhotodetPage {
                                 var accesstoken = res.text();
 
                                 if (accesstoken != '') {
+
+                                    if(item.is_status == 1){
+                                        item.type = 'image';
+
+                                        let modal = this.modalCtrl.create(FbcommentPage, {
+                                            "item": item, "accessToken" : accesstoken,"loggedinuser":this.loggedinuser
+                                        });
+
+                                        modal.present();
+                                    }else {
+                                        item.type = 'image1';
+
+                                        let modal = this.modalCtrl.create(FbcommentPage, {
+                                            "item": item, "accessToken" : accesstoken,"loggedinuser":this.loggedinuser
+                                        });
+
+                                        modal.present();
+                                    }
 
                                 } else {
                                     Facebook.login(["email","public_profile"]).then((result) => {

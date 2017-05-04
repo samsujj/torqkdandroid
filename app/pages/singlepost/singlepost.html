@@ -67,7 +67,7 @@
           <div class="text-contain" *ngIf=" item.type=='image' ">
             <div class="blogimg">
               <img style="position:absolute; margin-top:-2px;" alt="" src="images/arrow.png" width="54" height="28">
-              <img src="images/createimage1.jpg" style="cursor: pointer;" alt="" class="imgresponsive">
+              <img src="{{item.s_img}}" style="cursor: pointer;" alt="" class="imgresponsive">
             </div>
           </div>
           <div class="text-contain" *ngIf="item.type=='youtube' ">

@@ -327,7 +327,7 @@ export class AlbumvideoPage {
 
   postStatus(){
     var link = 'http://torqkd.com/user/ajs2/addAlbum';
-    var data = {'value':this.statusvalue,'user_id':this.loggedinuser,'share_with':this.share_with,'type':'video','msg':this.statusvalue};
+    var data = {'value':this.statusvalue,'user_id':this.loggedinuser,'share_with':this.share_with,'type':'video','msg':this.statusText};
 
     this._http.post(link, data)
         .subscribe(data => {
